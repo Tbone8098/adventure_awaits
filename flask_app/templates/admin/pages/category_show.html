@@ -1,0 +1,16 @@
+{% extends 'components/base.html' %}
+{% block content %}
+{% include 'components/navbar.html' %}
+<div class="box">
+    <p><strong>Description:</strong> {{category.description}}</p>
+</div>
+<div class="grid-container">
+    <div class="col-full">
+        <form action="/post/create" method="post">
+            <div>
+
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

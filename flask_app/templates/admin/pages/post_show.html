@@ -1,0 +1,10 @@
+{% extends 'components/base.html' %}
+{% block content %}
+{% include 'components/navbar.html' %}
+<div class="post-container">
+    <h1>{{post.title}}</h1>
+    <div class="post-content plr-5">
+        <p>{{post.content}}</p>
+    </div>
+</div>
+{% endblock %}

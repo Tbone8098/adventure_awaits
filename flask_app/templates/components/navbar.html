@@ -1,0 +1,25 @@
+<div class="flex justify-between align-center mlr-5">
+    {% if session['page'] == 'dashboard' %}
+    <h1>{{user.full_name}}</h1>
+    {% else %}
+    <h1>{{session['page']}}</h1>
+    {% endif %}
+    <ul class="ul-menu">
+        {% if not session['page'] == 'dashboard' %}
+        <li>
+            <a href="/dashboard">Dashboard</a>
+        </li>
+        {% endif %}
+        {% if not session['page'] == 'settings' %}
+        <li>
+            <a href="/settings">Settings</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="/post/new">Create Post</a>
+        </li>
+        <li>
+            <a href="/logout" class="btn bg-alert">Logout</a>
+        </li>
+    </ul>
+</div>

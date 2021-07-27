@@ -1,0 +1,14 @@
+{% extends 'components/base.html' %}
+{% block content %}
+
+{% include 'components/navbar.html' %}
+
+{% include 'components/family_info.html' %}
+
+{% if user.get_family %}
+
+{% include 'components/categories.html' %}
+
+{% endif %}
+
+{% endblock %}

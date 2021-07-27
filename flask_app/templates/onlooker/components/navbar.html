@@ -1,0 +1,5 @@
+<ul class="ul-menu flex justify-evenly">
+    {% for category in family.get_categories() %}
+    <li><a href="{{family.name}}/category/{{category.id}}" class="btn">{{category.name}}</a></li>
+    {% endfor %}
+</ul>

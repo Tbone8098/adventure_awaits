@@ -1,0 +1,18 @@
+{% extends 'components/base.html' %}
+{% block content %}
+{% include 'components/navbar.html' %}
+
+{% for cat in user.get_family.get_all_categories() %}
+<h2>{{cat.name}}</h2>
+<div class="post-container">
+    {% for post in cat.get_all_posts() %}
+    <div class="post-box">
+        <h3>{{post.title}}</h3>
+        <p>{{post.content|truncate(50)}}</p>
+        <p><a href="/post/{{post.id}}">Read More...</a></p>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}

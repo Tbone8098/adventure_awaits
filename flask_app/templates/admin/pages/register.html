@@ -1,0 +1,32 @@
+{% extends 'components/base.html' %}
+{% block content %}
+<div class="flex justify-center">
+    <div>
+        <h1>Register</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form action="/user/create" method="post" class="my-dflex-col">
+            <input type="text" name="first_name" placeholder="First Name">
+            <input type="text" name="last_name" placeholder="Last Name">
+            <input type="text" name="email" placeholder="Email">
+            <input type="text" name="username" placeholder="Username">
+            <div>
+                <input type="password" name="pw" placeholder="Password">
+                <button class="btn pw-btn">Show</button>
+            </div>
+            <div>
+                <input type="password" name="confirm_pw" placeholder="Confirm Password">
+                <button class="btn pw-btn">Show</button>
+            </div>
+            <button>Create User</button>
+            <a href="/login">Login</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

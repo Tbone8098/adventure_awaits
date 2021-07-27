@@ -1,0 +1,25 @@
+{% extends 'components/base.html' %}
+{% block content %}
+<div class="height-full flex align-center justify-center">
+    <div>
+        <h1 class="block">Login</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form action="/process_login" method="post">
+            <input type="text" name="login" placeholder="username or email">
+            <div>
+                <input type="password" name="pw" placeholder="Password">
+                <button class="btn pw-btn">Show</button>
+            </div>
+            <button>Login</button>
+            <a href="/register">Register</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

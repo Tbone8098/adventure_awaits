@@ -1,0 +1,11 @@
+{% extends 'components/base.html' %}
+{% block content %}
+<h1>{{session['page']}}'s</h1>
+
+{% include 'onlooker/components/navbar.html' %}
+
+<h3>Members of the Family</h3>
+{% for member in family.get_members() %}
+<p>{{member.full_name}}</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'components/base.html' %}
+{% block content %}
+{% include 'components/navbar.html' %}
+<div class="flex justify-center">
+    <div>
+        <h2>Create Post</h2>
+        <form action="/post/create" method="post">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title">
+            <div>
+                <label for="people_involved">Who Joined</label>
+                <select name="people_involved" id="people_involved">
+                    {% for person in user.get_family.get_members() %}
+                    <option value="{{person.id}}">{{person.full_name}}</option>
+                    {% endfor %}
+                </select>
+                <label for="category">Category</label>
+                <select name="category_id" id="category">
+                    {% for cat in user.get_family.get_categories() %}
+                    <option value="{{cat.id}}">{{cat.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <label for="content">Content</label>
+            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            <button>Create Post</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

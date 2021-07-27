@@ -1,0 +1,35 @@
+{% set fam = user.get_family %}
+
+{% if fam %}
+
+<div class="box">
+    <p><strong>Family Name:</strong> {{fam.name}}</p>
+    <p><strong>Family Code:</strong> {{fam.code}}</p>
+    <h3>Members:</h3>
+    {% for member in fam.get_members() %}
+    <p>{{member.full_name}}</p>
+    {% endfor %}
+    <a href="/family/{{fam['id']}}/leave"><button>Leave Family</button></a>
+</div>
+
+{% else %}
+
+<div class="flex justify-evenly">
+    <div>
+        <h3>Join Family</h3>
+        <form action="family/join" method="post">
+            <input type="text" name="family_code" placeholder="Family Code">
+            <button>Join Family</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Create Family</h3>
+        <form action="/family/create" method="post">
+            <input type="text" name="name" placeholder="Family Name">
+            <button>Create Family</button>
+        </form>
+    </div>
+</div>
+
+{% endif %}

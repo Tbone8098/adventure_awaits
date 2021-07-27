@@ -1,0 +1,49 @@
+<div class="flex justify-evenly">
+    <div>
+
+        <h2>Create Category</h2>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <form action="/category/create" method="post">
+            <input type="text" name="name" placeholder="Page Name">
+            <input type="text" name="description" id="description" placeholder="Page Description">
+            <button>Create Category</button>
+        </form>
+    </div>
+    <div>
+
+        <h2>All categories</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in user.get_family.get_categories() %}
+                <tr>
+                    <td>{{category.name}}</td>
+                    <td>{{category.description}}</td>
+                    <td>
+                        <div class="grid-container">
+                            <a href="/category/{{category.id}}" class="col-4 m-full s-full btn">View</a>
+                            <a href="/category/{{category.id}}/edit"
+                                class="col-4 m-full s-full btn bg-secondary">Edit</a>
+                            <a href="/category/{{category.id}}/delete"
+                                class="col-4 m-full s-full btn bg-alert">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
