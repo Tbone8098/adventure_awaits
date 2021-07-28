@@ -1,13 +1,36 @@
 {% extends 'components/base.html' %}
 {% block content %}
-<h1>All Families</h1>
-{% for family in all_families %}
-<p><strong>Family:</strong> <a href="/{{family.name}}">{{family.name}}</a></p>
-<p>Family Members</p>
-<ul>
-    {% for member in family.get_members() %}
-    <li>{{member.first_name}}</li>
+{% include 'onlooker/components/navbar.html' %}
+
+{% set all_cats = family.get_all_categories() %}
+
+{% if all_cats %}
+
+{% for cat in all_cats %}
+<h2 class="d-flex justify-content-start bg-light-3 box p-2">{{cat.name}}</h2>
+<div class="post-container row justify-content-center">
+    {% for post in cat.get_all_posts() %}
+    {% if loop.index0 % 2==0 %}
+    <div class="col-sm-5 col-md-3">
+        <div class="box post-box bg-dark-1 txt-light-1">
+            <h3 class="txt-white">{{post.title}}</h3>
+            <p>{{post.content | truncate(30)}}</p>
+            <a href="/{{family.name}}/post/{{post.id}}">View More</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-sm-5 col-md-3">
+        <div class="box post-box bg-light-1 txt-dark-1">
+            <h3 class="txt-white">{{post.title}}</h3>
+            <p>{{post.content | truncate(30)}}</p>
+            <a href="/{{family.name}}/post/{{post.id}}" class="txt-dark-1">View More</a>
+        </div>
+    </div>
+    {% endif %}
     {% endfor %}
-</ul>
+</div>
 {% endfor %}
+
+{% endif %}
+
 {% endblock %}

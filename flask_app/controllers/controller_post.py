@@ -1,8 +1,9 @@
-from flask_app import app
+from flask_app import app, login_required
 from flask import render_template, redirect, request, session, flash, jsonify
 from flask_app.models import model_user, model_post
 
 @app.route('/post/new')
+@login_required
 def new_post():
     session['page'] = 'post_new'
     context = {
@@ -11,6 +12,7 @@ def new_post():
     return render_template('admin/pages/post_new.html', **context)
 
 @app.route('/post/create', methods=['post'])
+@login_required
 def create_post():
     is_valid = model_post.Post.validate_posts(request.form)
 
@@ -34,6 +36,7 @@ def create_post():
     return redirect('/')
 
 @app.route('/post/<int:id>')
+@login_required
 def show_post(id):
     session['page'] = 'show_post'
     context = {

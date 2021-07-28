@@ -1,0 +1,16 @@
+{% extends 'components/base.html' %}
+{% block content %}
+{% include 'onlooker/components/navbar.html' %}
+<div class="flex-col justify-center">
+    <h1>{{category.name.upper()}}</h1>
+    {% for post in category.get_all_posts() %}
+    <div class="post-container">
+        <div class="post-box">
+            <h3>{{post.title}}</h3>
+            <p>{{post.content|truncate(50)}}</p>
+            <p><a href="/{{family.name}}/post/{{post.id}}">Read More...</a></p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

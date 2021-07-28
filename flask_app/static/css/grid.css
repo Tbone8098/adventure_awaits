@@ -1,0 +1,35 @@
+/********************** grid system *******************************/
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid-container > * {
+  border: 1px dotted green;
+}
+
+/* large Screen */
+@media only screen and (min-width: 769px) {
+}
+
+/* medium Screen */
+@media only screen and (max-width: 768px) {
+}
+
+/* small Screen */
+@media only screen and (max-width: 425px) {
+  .grid-container.cols-s5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .grid-container.cols-s4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid-container.cols-s3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-container.cols-s2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-container.cols-sfull {
+    grid-template-columns: 1fr;
+  }
+}

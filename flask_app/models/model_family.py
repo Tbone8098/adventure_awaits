@@ -19,12 +19,14 @@ class Family:
             'family_id': self.id
         }
         results = connectToMySQL(DATABASE_SCHEMA).query_db(query, data)
+        print("**************************")
+        print(results)
         if len(results):
             all_categories = []
             for cat in results:
                 all_categories.append(model_category.Category.get_one(cat['id']))
             return all_categories
-        return results
+        return False
 
 
     def get_categories(self):

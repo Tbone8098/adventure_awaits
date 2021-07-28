@@ -2,7 +2,12 @@
 {% block content %}
 {% include 'components/navbar.html' %}
 
-{% for cat in user.get_family.get_all_categories() %}
+{% set family = user.get_family %}
+{% if family %}
+
+{% set all_cat = user.get_family.get_all_categories() %}
+{% if all_cat != False %}
+{% for cat in all_cat %}
 <h2>{{cat.name}}</h2>
 <div class="post-container">
     {% for post in cat.get_all_posts() %}
@@ -15,4 +20,6 @@
 </div>
 {% endfor %}
 
+{% endif %}
+{% endif %}
 {% endblock %}

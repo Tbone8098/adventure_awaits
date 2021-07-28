@@ -17,7 +17,10 @@ class User:
 
     @property
     def get_family(self):
-        return model_family.Family.get_users_family(self.id)
+        family = model_family.Family.get_users_family(self.id)
+        print("^^^^^^^^^^^^^^^^^^^^^^^^^")
+        print(family)
+        return family
         
 
     @property
