@@ -73,7 +73,9 @@ a:hover {
 .txt-white {
   color: white;
 }
-
 .txt-upper {
   text-transform: uppercase;
+}
+.height-100 {
+  min-height: 100vh;
 }

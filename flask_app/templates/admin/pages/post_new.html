@@ -1,19 +1,49 @@
 {% extends 'components/base.html' %}
 {% block content %}
+<!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
+<script src="https://cdn.tiny.cloud/1/qhho236rwlmydafh0baqyv7lm4h7rytsswhvrm65sn6i0us3/tinymce/5/tinymce.min.js"
+    referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea#editor',
+        menubar: false
+    });
+</script>
+
 {% include 'components/navbar.html' %}
-<div class="flex justify-center">
-    <div>
+
+<div class="row mt-3">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="d-flex justify-content-between">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/blogs">Blogs</a></li>
+            {% if post %}
+            <li class="breadcrumb-item active" aria-current="page">Update Post</li>
+            {% else %}
+            <li class="breadcrumb-item active" aria-current="page">Create Post</li>
+            {% endif %}
+        </ol>
+        <div class="btns">
+            {% if post %}
+            <a href="/post/{{post.id}}" class="btn">View</a>
+            {% endif %}
+        </div>
+    </nav>
+</div>
+
+<div class="row justify-center">
+    <div class="col-sm-6">
+        {% if post %}
+        <h2>Update Post</h2>
+        {% else %}
         <h2>Create Post</h2>
-        <form action="/post/create" method="post">
+        {% endif %}
+        <form id="content-section" action="{{'/post/' + post.id|string + '/update' if post else '/post/create' }}"
+            method="post">
             <label for="title">Title</label>
-            <input type="text" name="title" id="title">
+            <input type="text" name="title" id="title" value="{{post.title if post else ''}}">
             <div>
-                <label for="people_involved">Who Joined</label>
-                <select name="people_involved" id="people_involved">
-                    {% for person in user.get_family.get_members() %}
-                    <option value="{{person.id}}">{{person.full_name}}</option>
-                    {% endfor %}
-                </select>
                 <label for="category">Category</label>
                 <select name="category_id" id="category">
                     {% for cat in user.get_family.get_categories() %}
@@ -21,10 +51,58 @@
                     {% endfor %}
                 </select>
             </div>
-            <label for="content">Content</label>
-            <textarea name="content" id="content" cols="30" rows="10"></textarea>
-            <button>Create Post</button>
+            <label for="is_public">Make Public</label>
+            <input type="checkbox" name="is_public" id="is_public">
+            <div>
+                <label for="content">Content</label>
+                <textarea name="content" id="editor" cols="30" rows="10">{{post.content | safe}}</textarea>
+            </div>
         </form>
     </div>
+    <div class="col-sm-6">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="mt-3">
+        <div>
+            <form class="file-upload" action="" method="post" post_id="{{post.id if post else 0}}">
+                <input type="text" name="title" id="title" placeholder="Title">
+                <input type="file" name="file" id="image-file">
+                <button>Submit</button>
+            </form>
+        </div>
+        {% if all_images %}
+        <div class="attached-images">
+            <table>
+                {% for img in all_images %}
+                <tr>
+                    <td>
+                        <img src="{{img.base64}}" alt="" width="100">
+                    </td>
+                    <td>{{img.title}}</td>
+                    <td>
+                        <button class="delete-image-btn" img_id="{{img.id}}">X</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+
+        {% if post %}
+        <button class="mt-3 success" id="content-section-btn">Update Post</button>
+        {% else %}
+        <button class="mt-3 success" id="content-section-btn">Create Post</button>
+        {% endif %}
+    </div>
 </div>
+
+<script src="{{url_for('static', filename='js/blogs/create_update_post.js')}}"></script>
+
 {% endblock %}

@@ -42,11 +42,11 @@ def admin_dashboard():
     }
     return render_template('/admin/pages/dashboard.html', **context)
 
-@app.route('/settings')
+@app.route('/profile')
 @login_required
 def admin_settings():
-    session['page'] = 'settings'
+    session['page'] = 'my profile'
     context = {
         "user": model_user.User.get_one(session['uuid'])
     }
-    return render_template('/admin/pages/settings.html', **context)
+    return render_template('/admin/pages/profile.html', **context)

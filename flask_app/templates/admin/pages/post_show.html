@@ -1,10 +1,20 @@
 {% extends 'components/base.html' %}
 {% block content %}
 {% include 'components/navbar.html' %}
-<div class="post-container">
-    <h1>{{post.title}}</h1>
-    <div class="post-content plr-5">
-        <p>{{post.content}}</p>
-    </div>
+
+<div class="row mt-3">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb"
+        class="d-flex justify-content-between align-items-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/blogs">Blogs</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{post.title}}</li>
+        </ol>
+        <a href="/post/{{post.id}}/edit" class="btn">Edit Post</a>
+        <a href="/post/new" class="btn">Create Post</a>
+    </nav>
 </div>
+
+{% include 'components/post_container.html' %}
+
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'components/base.html' %}
+{% block content %}
+
+{% include 'components/navbar.html' %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="d-flex justify-content-between">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+    </ol>
+</nav>
+
+
+<div class="row">
+    <button class="bg-dark-3 txt-white my-3 section-btn" id="family-btn" name="Family Info" link="family-section">Show
+        Family Info</button>
+    <div id="family-section" style="display: none;">
+        {% include 'components/family_info.html' %}
+    </div>
+
+    <button class="bg-dark-3 txt-white my-3 section-btn" id="personal-btn" name="Personal Info"
+        link="personal-section">Show
+        Personal
+        Settings</button>
+    <div id="personal-section" style="display: none;">
+        {% include 'components/personal_info.html' %}
+    </div>
+
+    <button class="bg-dark-3 txt-white my-3 section-btn" id="theme-btn" name="Theme Settings" link="theme-section">Show
+        Theme
+        Settings</button>
+    <div id="theme-section" style="display: none;">
+        {% include 'components/theme_info.html' %}
+    </div>
+</div>
+
+
+<script src="{{url_for('static', filename='js/profile.js')}}"></script>
+{% endblock %}

@@ -1,10 +1,7 @@
 {% extends 'components/base.html' %}
 {% block content %}
 {% include 'onlooker/components/navbar.html' %}
-<div class="bg-dark-1 post-area row txt-light-1">
-    <div>
-        <h1 class="txt-white txt-upper">{{post.title}}</h1>
-        <p>{{post.content}}</p>
-    </div>
-</div>
+
+{% include 'components/post_container.html' %}
+
 {% endblock %}

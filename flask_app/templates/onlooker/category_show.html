@@ -3,7 +3,8 @@
 {% include 'onlooker/components/navbar.html' %}
 <div class="flex-col justify-center">
     <h1>{{category.name.upper()}}</h1>
-    {% for post in category.get_all_posts() %}
+    {% for post in category.get_all_posts %}
+    {% if post.is_public == True %}
     <div class="post-container">
         <div class="post-box">
             <h3>{{post.title}}</h3>
@@ -11,6 +12,7 @@
             <p><a href="/{{family.name}}/post/{{post.id}}">Read More...</a></p>
         </div>
     </div>
+    {% endif %}
+    {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

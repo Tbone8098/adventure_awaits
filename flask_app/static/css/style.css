@@ -3,16 +3,58 @@ body {
   height: 100%;
 }
 
-.post-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 1em 0;
-  padding: 0.5em;
-  height: 150px;
+.post-container {
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid black;
+  border-radius: 10px;
 }
 
 .post-area {
   min-height: 94vh;
   overflow-x: auto;
+}
+
+.ul-menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.app-box {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5em 0.5em;
+  padding: 0.25em;
+  width: 7em;
+  height: 7em;
+  background-color: var(--dark-1);
+  color: var(--light-1);
+}
+
+.app-box .disabled {
+  background-color: var(--light-1);
+  color: var(--dark-1);
+}
+
+.carousel {
+  position: relative;
+  height: 50vh;
+  border: 1px solid black;
+}
+
+.post-carousel .carousel-item img {
+  height: 100%;
+  width: 100%;
+}
+
+.gallery-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.gallery-container > img {
+  max-width: 20em;
 }

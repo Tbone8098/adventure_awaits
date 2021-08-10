@@ -2,19 +2,23 @@
 {% block content %}
 {% include 'onlooker/components/navbar.html' %}
 
-{% set all_cats = family.get_all_categories() %}
+{% set all_cats = family.get_all_categories %}
 
 {% if all_cats %}
 
 {% for cat in all_cats %}
+{% if cat.count_public > 0 %}
 <h2 class="d-flex justify-content-start bg-light-3 box p-2">{{cat.name}}</h2>
 <div class="post-container row justify-content-center">
-    {% for post in cat.get_all_posts() %}
+
+
+    {% for post in cat.get_all_posts %}
+    {% if post.is_public == True %}
     {% if loop.index0 % 2==0 %}
     <div class="col-sm-5 col-md-3">
         <div class="box post-box bg-dark-1 txt-light-1">
             <h3 class="txt-white">{{post.title}}</h3>
-            <p>{{post.content | truncate(30)}}</p>
+            <p>{{post.content | truncate(30) | safe}}</p>
             <a href="/{{family.name}}/post/{{post.id}}">View More</a>
         </div>
     </div>
@@ -22,13 +26,15 @@
     <div class="col-sm-5 col-md-3">
         <div class="box post-box bg-light-1 txt-dark-1">
             <h3 class="txt-white">{{post.title}}</h3>
-            <p>{{post.content | truncate(30)}}</p>
+            <p>{{post.content | truncate(30) | safe}}</p>
             <a href="/{{family.name}}/post/{{post.id}}" class="txt-dark-1">View More</a>
         </div>
     </div>
     {% endif %}
+    {% endif %}
     {% endfor %}
 </div>
+{% endif %}
 {% endfor %}
 
 {% endif %}

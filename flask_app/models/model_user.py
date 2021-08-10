@@ -18,8 +18,6 @@ class User:
     @property
     def get_family(self):
         family = model_family.Family.get_users_family(self.id)
-        print("^^^^^^^^^^^^^^^^^^^^^^^^^")
-        print(family)
         return family
         
 

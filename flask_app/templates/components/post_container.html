@@ -1,0 +1,40 @@
+<div class="post-container">
+    <div class="row">
+        <h1>{{post.title}}</h1>
+    </div>
+    <div class="row">
+        <div class="post-content plr-5">
+            <p>{{post.content | safe}}</p>
+        </div>
+    </div>
+    {% if images %}
+    <div class="row">
+        <button id="picture-switch-btn">Show All</button>
+    </div>
+    <div class="row gallery-container" id="gallery" style="display: none;">
+        <div class="d-flex justify-content-center flex-wrap">
+            {% for img in images %}
+            <img src="{{img.base64}}" alt="{{img.title}}" class="mb-3 me-3 w-25">
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row" id="carousel" style="display: block;">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner post-carousel">
+                {% for img in images %}
+                {% if loop.index0 ==0 %}
+                <div class="carousel-item active">
+                    <img src="{{img.base64}}" class="d-block" alt="...">
+                </div>
+                {% else %}
+                <div class="carousel-item">
+                    <img src="{{img.base64}}" class="d-block" alt="...">
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<script src="{{url_for('static', filename='js/blogs/show.js')}}"></script>

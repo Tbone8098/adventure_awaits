@@ -1,0 +1,63 @@
+{% extends 'components/base.html' %}
+{% block content %}
+
+{% set family = user.get_family %}
+{% include 'components/navbar.html' %}
+
+<div class="row mt-3">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb"
+        class="d-flex justify-content-between align-items-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+        </ol>
+        <a href="/post/new" class="btn">Create Post</a>
+    </nav>
+</div>
+
+{% if family.get_all_posts != False %}
+<!-- <a href="">Filter</a> -->
+<div class="row mb-3">
+    <form action="" method="post">
+        <select name="cat_id" id="cat_id">
+            {% for cat in family.get_all_categories %}
+            <option value="{{cat.id}}">{{cat.name}}</option>
+            {% endfor %}
+        </select>
+        <button>Select</button>
+    </form>
+</div>
+{% for post in family.get_all_posts %}
+<div class="row">
+    <div class="post-box bg-dark-1 txt-white mb-3">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h3>{{post.title}}</h3>
+                    <p>{{post.category.name}}</p>
+                </div>
+                <span>{{post.date}} {{post.time}} {{post.ampm}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <p>{{post.content | truncate(100) | safe }}</p>
+        </div>
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center bg-dark-2">
+                <div>
+                    <label for="make_pub">Public</label>
+                    <input type="checkbox" name="make_pub" id="make_pub" class="make_pub_btn" post_id="{{post.id}}"
+                        {{'checked' if post.is_public==True else '' }}>
+                </div>
+                <a href="/post/{{post.id}}" class="btn w-auto txt-light-1">View Post</a>
+                <a href="/post/{{post.id}}/edit" class="btn w-auto txt-light-1">Edit Post</a>
+                <a href="/post/{{post.id}}/delete" class="btn w-auto txt-light-1">Delete Post</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<script src="{{url_for('static', filename='js/blogs/all_blogs.js')}}"></script>
+{% endblock %}
