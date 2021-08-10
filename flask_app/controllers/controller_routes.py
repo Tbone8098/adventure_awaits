@@ -11,6 +11,7 @@ def index():
 @app.route('/<string:family_name>')
 def onlooker_dashboard(family_name):
     session['page'] = 'onlooker_dashboard'
+    print(family_name)
     context = {
         "family": model_family.Family.get_one_by_name(family_name)
     }

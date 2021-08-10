@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
-from flask_app.models import model_user, model_category
+from flask_app.models import model_user, model_category, model_post
 import re
 
 DATABASE_SCHEMA = 'adventure_awaits_2_db'
@@ -13,20 +13,33 @@ class Family:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
+    @property
     def get_all_categories(self):
         query = 'SELECT id FROM categories WHERE family_id = %(family_id)s;'
         data = {
             'family_id': self.id
         }
         results = connectToMySQL(DATABASE_SCHEMA).query_db(query, data)
-        print("**************************")
-        print(results)
         if len(results):
             all_categories = []
             for cat in results:
                 all_categories.append(model_category.Category.get_one(cat['id']))
             return all_categories
         return False
+
+    @property
+    def get_all_posts(self):
+        query = "SELECT id FROM posts WHERE family_id = %(family_id)s ORDER BY created_at desc"
+        data = {
+            'family_id': self.id,
+        }
+        results = connectToMySQL(DATABASE_SCHEMA).query_db(query, data)
+        if results:
+            all_posts = []
+            for post in results:
+                all_posts.append(model_post.Post.get_one(post['id']))
+            return all_posts
+        return results
 
 
     def get_categories(self):
@@ -35,7 +48,6 @@ class Family:
             "family_id": self.id
         }
         results = connectToMySQL(DATABASE_SCHEMA).query_db(query, data)
-        print(results)
         if results != False:
             all_pages = []
             for page in results:
@@ -45,7 +57,6 @@ class Family:
 
 
     def get_members(self):
-        print("*"*80)
         query = 'SELECT users.id FROM users_has_families JOIN users ON user_id = users.id WHERE family_id = %(id)s'
         data = {
             "id": self.id
@@ -150,7 +161,6 @@ class Family:
             "id": id
         }
         connectToMySQL(DATABASE_SCHEMA).query_db(query,data)
-        print(f"user with the id {id} has been deleted")
         return id
 
     @classmethod

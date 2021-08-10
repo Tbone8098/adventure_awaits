@@ -15,6 +15,7 @@ class Category:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
+    @property
     def get_all_posts(self):
         query = 'SELECT id FROM posts WHERE category_id = %(cat_id)s'
         data = {
@@ -28,6 +29,16 @@ class Category:
             return all_posts
         return results
 
+    @property
+    def count_public(self):
+        results = self.get_all_posts
+        if results:
+            count = 0
+            for post in results:
+                if post.is_public == True:
+                    count += 1
+            return count
+        return results
 
 # C
     @classmethod
@@ -65,7 +76,6 @@ class Category:
         }
         result = connectToMySQL(DATABASE_SCHEMA).query_db(query, data)
         if len(result) > 0:
-            print(result)
             return cls(result[0])
         return result
     
