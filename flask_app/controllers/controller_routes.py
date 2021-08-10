@@ -1,6 +1,6 @@
 from flask_app import app
 from flask import render_template, redirect, request, session, flash, jsonify
-from flask_app.models import model_family, model_category, model_post
+from flask_app.models import model_family, model_category, model_post, model_img
 
 @app.route('/')
 def index():
@@ -40,6 +40,7 @@ def onlooker_post_show(family_name, post_id):
     session['page'] = 'onlooker_one_post'
     context = {
         "family": model_family.Family.get_one_by_name(family_name),
-        "post": model_post.Post.get_one(post_id)
+        "post": model_post.Post.get_one(post_id),
+        'images': model_img.Image.get_all_linked(post_id),
     }
     return render_template('onlooker/post_show.html', **context)

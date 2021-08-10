@@ -48,7 +48,7 @@ def show_post(id):
     context = {
         'user': model_user.User.get_one(session['uuid']),
         'post': model_post.Post.get_one(id),
-        'images': model_img.Image.get_all()
+        'images': model_img.Image.get_all_linked(id)
     }
     return render_template('admin/pages/post_show.html', **context)
 

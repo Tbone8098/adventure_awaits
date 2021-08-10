@@ -24,6 +24,11 @@
             <li class="breadcrumb-item active" aria-current="page">Create Post</li>
             {% endif %}
         </ol>
+        <div class="btns">
+            {% if post %}
+            <a href="/post/{{post.id}}" class="btn">View</a>
+            {% endif %}
+        </div>
     </nav>
 </div>
 
@@ -101,11 +106,3 @@
 <script src="{{url_for('static', filename='js/blogs/create_update_post.js')}}"></script>
 
 {% endblock %}
-
-
-<!-- 
-                <div class="d-flex align-items-center mt-3">
-                <img src="{{img.base64}}" alt="" width="100" class="me-3">
-                <p> {{img.title}} <button class="delete-image-btn" img_id="{{img.id}}">Remove</button></p>
-            </div>
- -->

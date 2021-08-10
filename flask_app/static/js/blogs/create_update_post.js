@@ -44,12 +44,17 @@ fileUpload.addEventListener('submit', function(e){
             .then(data => {
                 console.log(data);
                 if (data['code'] === 200){
-                    var attachedImages = document.querySelector('.attached-images')
+                    var attachedImages = document.querySelector('.attached-images > table')
                     attachedImages.innerHTML += `
-                    <div class="d-flex align-items-center mt-3">
-                    <img src="${base64}" alt="" width="100" class="me-3">
-                    <p> ${title} <button class="delete-image-btn">Remove</button></p>
-                    </div>
+                    <tr>
+                        <td>
+                            <img src="${base64}" alt="" width="100">
+                        </td>
+                        <td>${title}</td>
+                        <td>
+                            <button class="delete-image-btn" img_id="${data['img_id']}">X</button>
+                        </td>
+                    </tr>
                     `
                 } else {
                     console.log('no');

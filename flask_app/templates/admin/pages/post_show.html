@@ -10,43 +10,11 @@
             <li class="breadcrumb-item"><a href="/blogs">Blogs</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{post.title}}</li>
         </ol>
+        <a href="/post/{{post.id}}/edit" class="btn">Edit Post</a>
         <a href="/post/new" class="btn">Create Post</a>
     </nav>
 </div>
 
-<div class="post-container">
-    <div class="row">
-        <h1>{{post.title}}</h1>
-    </div>
-    <div class="row">
-        <div class="post-content plr-5">
-            <p>{{post.content | safe}}</p>
-        </div>
-    </div>
-    <div class="row">
-        <button>Show All</button>
-    </div>
-    <div class="row gallery-container" id="gallery">
-        {% for img in images %}
-        <img src="{{img.link}}" alt="">
-        {% endfor %}
-    </div>
-    <div class="row" id="carousel" style="display: none;">
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner post-carousel">
-                {% for img in images %}
-                {% if loop.index0 ==0 %}
-                <div class="carousel-item active">
-                    <a href="{{img.link}}" target="_blank"><img src="{{img.link}}" class="d-block" alt="..."></a>
-                </div>
-                {% else %}
-                <div class="carousel-item">
-                    <a href="{{img.link}}" target="_blank"><img src="{{img.link}}" class="d-block" alt="..."></a>
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'components/post_container.html' %}
+
 {% endblock %}
