@@ -53,7 +53,6 @@ class Image:
             'post_id': post_id
         }
         results = connectToMySQL(DATABASE_SCHEMA).query_db(query, data)
-        print(results)
         if results:
             all_images = []
             for image in results:

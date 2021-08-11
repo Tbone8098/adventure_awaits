@@ -41,8 +41,6 @@ def create_family():
 @login_required
 def join_family():
     family = model_family.Family.get_one_by_code(request.form['family_code'])
-    print("*"*80)
-    print(family)
     data = {
         "user_id": session['uuid'],
         "family_id": family.id

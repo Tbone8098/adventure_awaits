@@ -23,8 +23,6 @@ def create_category():
         "family_id": model_user.User.get_one(session['uuid']).get_family.id
     }
 
-    print("&"*80)
-    print(info)
     model_category.Category.create(info)
     return redirect('/settings')
 

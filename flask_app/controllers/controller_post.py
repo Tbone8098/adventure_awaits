@@ -35,8 +35,6 @@ def create_post():
     else:
         info['is_public'] = 0
 
-    print(info)
-
     model_post.Post.create(info)
 
     return redirect('/blogs')
@@ -57,7 +55,7 @@ def edit_post(id):
     context = {
         'user': model_user.User.get_one(session['uuid']),
         'post': model_post.Post.get_one(id),
-        'all_images': model_img.Image.get_all(),
+        'all_images': model_img.Image.get_all_linked(id),
     }
     return render_template('admin/pages/post_new.html', **context)
 
@@ -80,7 +78,6 @@ def update_post(id):
 @app.route('/post/<int:post_id>/update_public/<status>')
 def update_public(post_id, status):
     msg = "success"
-    print(f"status: {status}")
     if status == 'true':
         status = 1
     else:

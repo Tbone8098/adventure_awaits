@@ -16,9 +16,7 @@ def create_img(post_id=0):
 
     img_id = model_img.Image.create(request.form)
     if img_id:
-        print("img -> create -> if 1")
         if post_id != 0:
-            print("img -> create -> if 2")
             model_img.Image.create_image_link({
                 'post_id': post_id,
                 'image_id': img_id,
@@ -28,7 +26,6 @@ def create_img(post_id=0):
                 'img_id': img_id,
                 'code': 200
             }
-            print(response)
             return jsonify(response)
     return jsonify(msg="image upload failed")
 

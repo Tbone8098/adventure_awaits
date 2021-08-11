@@ -101,7 +101,6 @@ class Category:
             "id": id
         }
         connectToMySQL(DATABASE_SCHEMA).query_db(query,data)
-        print(f"user with the id {id} has been deleted")
         return id
 
     # Delete if not a user model

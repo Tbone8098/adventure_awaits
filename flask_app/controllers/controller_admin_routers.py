@@ -13,7 +13,6 @@ def admin_process_login():
     user = model_user.User.get_one_by_email(request.form['login'])
 
     if len(user) < 1:
-        print("no email")
         user = model_user.User.get_one_by_username(request.form['login'])
         if len(user) < 1:
             print('no username')
